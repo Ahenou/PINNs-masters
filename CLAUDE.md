@@ -13,29 +13,26 @@ sin paquete ni tests. Varios exploran el mismo problema con enfoques distintos.
 
 ## Mapa de archivos
 
-**Enfoque actual (el que funciona)**
+```
+Boussinesq_PINN_corregido.ipynb   cuaderno principal (enfoque actual)
+docs/                             explicación de la parametrización (.docx)
+boussinesq/
+  checkpoints/                    Checkpoint1..6, NEWCheckpoint5
+  variantes/                      PINN Boussinesq*: polinómica SiLU/GELU,
+                                  restricciones duras, Fourier, curriculum learning
+  love/                           Bousinessq Love.py, Resume.ipynb
+  modelos/                        boussinesq_model_distributed_load_v2/v3 (.pth)
+vigas/                            Euler-Bernoulli, Love-Kirchhoff, viga de Airy
+fundamentos/                      Laplace, ED4_1V, motionDE
+```
 
-- `Boussinesq_PINN_corregido.ipynb` — PINN con la singularidad incorporada en la
-  parametrización. Ejecutado de principio a fin, con salidas y figuras.
-- `Parametrizacion_PINN_Boussinesq.docx` — explicación detallada de esa parametrización.
+Todo lo que está bajo `boussinesq/` salvo el cuaderno principal corresponde al **enfoque
+anterior**, que evita la singularidad: carga distribuida sobre un radio pequeño y puntos
+de colocación solo donde ρ ≥ 0.04 (`P = 10000 N`, `a = 0.1`, dominio 20×20, ν = 0.3). Se
+conserva como registro, no como base sobre la que construir.
 
-**Enfoque anterior (evita la singularidad, conservado como referencia)**
-
-- `Checkpoint1..6`, `NEWCheckpoint5`, `Resume.ipynb` — iteraciones sucesivas.
-- `PINN Boussinesq*.ipynb` — variantes: polinómica con SiLU y con GELU, Fourier,
-  *curriculum learning*, restricciones duras.
-- `boussinesq_model_distributed_load_v2.pth`, `..._v3_resumed.pth` — pesos entrenados
-  con carga distribuida (`P = 10000 N`, `a = 0.1`, dominio 20×20, ν = 0.3). Generan
-  puntos de colocación solo donde ρ ≥ 0.04, es decir, **evitan** la singularidad.
-
-**Otros problemas**
-
-- Vigas: `PINN_beam_EulerBernoulli ★`, `PINN_beam_LoveKirchhoff almost`,
-  `PINN_beam_AiryBeam`, `Bousinessq Love.py`.
-- `PINN_Laplace_eq`, `PINN_motionDE`, `PINN_ED4_1V`.
-
-`Checkpoint1.ipynb` de este repositorio **no** coincide con la copia que circuló fuera
-de él. Confirmar cuál es la versión buena antes de modificarlo.
+`boussinesq/checkpoints/Checkpoint1.ipynb` **no** coincide con la copia que circuló fuera
+del repositorio. Confirmar cuál es la versión buena antes de modificarlo.
 
 ## Convenciones del enfoque corregido
 
